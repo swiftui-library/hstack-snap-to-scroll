@@ -26,76 +26,65 @@ public struct HStackSnap<Content: View>: View {
                 for pref in preferences {
 
                     itemFrames[pref.id] = pref
-//                        print(pref.rect.minX)
                 }
             })
-            .coordinateSpace(name: ContentPreferenceKey.coordinateSpace)
             .disabled(true)
-            .gesture(
-
-                DragGesture()
-                    .onChanged { gesture in
-
-                        self.scrollOffset = gesture.translation.width + prevScrollOffset
-
-                    }.onEnded { event in
-
-//                    scrollOffset += event.translation.width
-//                    dragOffset = 0
-
-                        guard var closestFrame: ContentPreferenceData = itemFrames.first?.value else { return }
-
-                        func distanceToFrame(x: CGFloat, absolute: Bool) -> CGFloat {
-
-                            if absolute {
-                                return abs(targetOffset - x)
-                            } else {
-                                return targetOffset - x
-                            }
-                        }
-
-                        for (key, value) in itemFrames {
-
-                            let currDistance = distanceToFrame(
-                                x: closestFrame.rect.minX,
-                                absolute: true)
-                            let newDistance = distanceToFrame(x: value.rect.minX, absolute: true)
-
-                            print("~~ \(value.rect.maxX)")
-
-                            if newDistance < currDistance {
-
-                                closestFrame = value
-                            }
-                        }
-
-                        withAnimation {
-
-                            print(distanceToFrame(x: closestFrame.rect.minX, absolute: false))
-
-                            scrollOffset += distanceToFrame(
-                                x: closestFrame.rect.minX,
-                                absolute: false)
-                        }
-
-                    })
-            .onTapGesture {
-
-                scrollOffset = 0
-                prevScrollOffset = 0
-            }
+            .gesture(snapDrag)
         }
+            .coordinateSpace(name: ContentPreferenceKey.coordinateSpace)
     }
 
     // MARK: Internal
 
     var content: () -> Content
 
+    var snapDrag: some Gesture {
+
+        DragGesture()
+            .onChanged { gesture in
+
+                self.scrollOffset = gesture.translation.width + prevScrollOffset
+
+            }.onEnded { event in
+
+                guard var closestFrame: ContentPreferenceData = itemFrames.first?.value else { return }
+
+                for (_, value) in itemFrames {
+
+                    let currDistance = distanceToTarget(
+                        x: closestFrame.rect.minX)
+                    let newDistance = distanceToTarget(x: value.rect.minX)
+
+                    if abs(newDistance) < abs(currDistance) {
+
+                        closestFrame = value
+                    }
+                }
+
+                withAnimation(.easeOut(duration: 0.2)) {
+
+                    scrollOffset += distanceToTarget(
+                        x: closestFrame.rect.minX)
+                }
+                
+                prevScrollOffset = scrollOffset
+            }
+    }
+
+    func distanceToTarget(x: CGFloat) -> CGFloat {
+
+        return targetOffset - x
+    }
+
     // MARK: Private
 
+    /// Current scroll offset.
     @State private var scrollOffset: CGFloat = 0
+    
+    /// Stored offset of previous scroll, so scroll state is resumed between drags.
     @State private var prevScrollOffset: CGFloat = 0
-
+    
+    ///
     @State private var targetOffset: CGFloat = 0
 
     @State private var itemFrames: [UUID: ContentPreferenceData] = [:]
