@@ -1,11 +1,11 @@
 import Foundation
 import SwiftUI
 
-public struct GeometryReaderOverlay: View {
+public struct GeometryReaderOverlay<ID: Hashable>: View {
 
     // MARK: Lifecycle
 
-    public init(id: UUID, coordinateSpace: String = "SnapToScroll") {
+    public init(id: ID, coordinateSpace: String = "SnapToScroll") {
 
         self.id = id
         self.coordinateSpace = coordinateSpace
@@ -21,13 +21,13 @@ public struct GeometryReaderOverlay: View {
                 .preference(
                     key: ContentPreferenceKey.self,
                     value: [ContentPreferenceData(
-                        id: id,
+                        id: id.hashValue,
                         rect: geometry.frame(in: .named(coordinateSpace)))])
         }
     }
 
     // MARK: Internal
 
-    let id: UUID
+    let id: ID
     let coordinateSpace: String
 }

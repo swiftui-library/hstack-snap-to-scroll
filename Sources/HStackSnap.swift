@@ -32,7 +32,7 @@ public struct HStackSnap<Content: View>: View {
 
                 for pref in preferences {
 
-                    itemFrames[pref.id] = pref
+                    itemFrames[pref.id.hashValue] = pref
                 }
 
             })
@@ -95,7 +95,7 @@ public struct HStackSnap<Content: View>: View {
     /// Calculated offset based on `SnapLocation`
     @State private var targetOffset: CGFloat
 
-    @State private var itemFrames: [UUID: ContentPreferenceData] = [:]
+    @State private var itemFrames: [Int: ContentPreferenceData] = [:]
 
     private let coordinateSpace: String
 }

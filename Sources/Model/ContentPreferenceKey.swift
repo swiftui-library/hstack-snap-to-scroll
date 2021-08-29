@@ -5,7 +5,7 @@ import SwiftUI
 
 struct ContentPreferenceData: Equatable {
 
-    let id: UUID
+    let id: Int
     let rect: CGRect
 }
 

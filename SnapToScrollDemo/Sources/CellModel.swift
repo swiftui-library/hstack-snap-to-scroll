@@ -1,8 +1,8 @@
-
+//
 //
 //import Foundation
 //
-//struct Model: Identifiable {
+//struct CellModel: Identifiable {
 //
 //    var systemImage: String
 //    var

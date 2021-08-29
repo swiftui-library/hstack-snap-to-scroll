@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84C99CD826D99BA100C1D5C4 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C99CD726D99BA100C1D5C4 /* Model.swift */; };
+		84C99CD826D99BA100C1D5C4 /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C99CD726D99BA100C1D5C4 /* CellModel.swift */; };
 		84D9FA3626D9753600F87EF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9FA3526D9753600F87EF5 /* AppDelegate.swift */; };
 		84D9FA3826D9753600F87EF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9FA3726D9753600F87EF5 /* SceneDelegate.swift */; };
 		84D9FA3A26D9753600F87EF5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9FA3926D9753600F87EF5 /* ContentView.swift */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		84C99CD726D99BA100C1D5C4 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		84C99CD726D99BA100C1D5C4 /* CellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
 		84D9FA3226D9753600F87EF5 /* SnapToScrollDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapToScrollDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D9FA3526D9753600F87EF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84D9FA3726D9753600F87EF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 				84D9FA3526D9753600F87EF5 /* AppDelegate.swift */,
 				84D9FA3726D9753600F87EF5 /* SceneDelegate.swift */,
 				84D9FA3926D9753600F87EF5 /* ContentView.swift */,
-				84C99CD726D99BA100C1D5C4 /* Model.swift */,
+				84C99CD726D99BA100C1D5C4 /* CellModel.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -174,7 +174,7 @@
 				84D9FA3626D9753600F87EF5 /* AppDelegate.swift in Sources */,
 				84D9FA3826D9753600F87EF5 /* SceneDelegate.swift in Sources */,
 				84D9FA3A26D9753600F87EF5 /* ContentView.swift in Sources */,
-				84C99CD826D99BA100C1D5C4 /* Model.swift in Sources */,
+				84C99CD826D99BA100C1D5C4 /* CellModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
