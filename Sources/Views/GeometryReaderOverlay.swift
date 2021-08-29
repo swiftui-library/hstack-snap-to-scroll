@@ -3,23 +3,31 @@ import SwiftUI
 
 public struct GeometryReaderOverlay: View {
 
-    let id: UUID
-    
-    public init(id: UUID) {
-        
+    // MARK: Lifecycle
+
+    public init(id: UUID, coordinateSpace: String = "SnapToScroll") {
+
         self.id = id
+        self.coordinateSpace = coordinateSpace
     }
-    
+
+    // MARK: Public
+
     public var body: some View {
-        
+
         GeometryReader { geometry in
-            
+
             Rectangle().fill(Color.blue.opacity(0.5))
                 .preference(
                     key: ContentPreferenceKey.self,
                     value: [ContentPreferenceData(
                         id: id,
-                        rect: geometry.frame(in: .named(ContentPreferenceKey.coordinateSpace)))])
+                        rect: geometry.frame(in: .named(coordinateSpace)))])
         }
     }
+
+    // MARK: Internal
+
+    let id: UUID
+    let coordinateSpace: String
 }

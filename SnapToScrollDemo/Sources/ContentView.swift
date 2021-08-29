@@ -10,16 +10,26 @@ struct ContentView: View {
     var body: some View {
         VStack {
             
-            HStackSnap {
+            HStackSnap(leadingOffset: 16) {
                 
                 ForEach(items, id: \.1) { item in
                     
                     Text(item.0)
                         .font(.largeTitle)
-                        .padding()
+                        .padding(16)
                         .overlay(GeometryReaderOverlay(id: item.1))
                 }
             }
+//            HStackSnap(snapLocation: .center) {
+//                
+//                ForEach(items, id: \.1) { item in
+//                    
+//                    Text(item.0)
+//                        .font(.largeTitle)
+//                        .padding()
+//                        .overlay(GeometryReaderOverlay(id: item.1))
+//                }
+//            }
         }
         
         /// SnapHStack {

@@ -5,9 +5,15 @@ public struct HStackSnap<Content: View>: View {
 
     // MARK: Lifecycle
 
-    public init(@ViewBuilder content: @escaping () -> Content) {
+    public init(
+        leadingOffset: CGFloat,
+        coordinateSpace: String = "SnapToScroll",
+        @ViewBuilder content: @escaping () -> Content) {
 
         self.content = content
+        targetOffset = leadingOffset
+        scrollOffset = leadingOffset
+        self.coordinateSpace = coordinateSpace
     }
 
     // MARK: Public
@@ -15,6 +21,7 @@ public struct HStackSnap<Content: View>: View {
     public var body: some View {
 
         GeometryReader { geometry in
+
             ScrollView(.horizontal) {
 
                 HStack(content: content)
@@ -27,11 +34,12 @@ public struct HStackSnap<Content: View>: View {
 
                     itemFrames[pref.id] = pref
                 }
+
             })
             .disabled(true)
             .gesture(snapDrag)
         }
-            .coordinateSpace(name: ContentPreferenceKey.coordinateSpace)
+        .coordinateSpace(name: coordinateSpace)
     }
 
     // MARK: Internal
@@ -66,7 +74,7 @@ public struct HStackSnap<Content: View>: View {
                     scrollOffset += distanceToTarget(
                         x: closestFrame.rect.minX)
                 }
-                
+
                 prevScrollOffset = scrollOffset
             }
     }
@@ -79,13 +87,15 @@ public struct HStackSnap<Content: View>: View {
     // MARK: Private
 
     /// Current scroll offset.
-    @State private var scrollOffset: CGFloat = 0
-    
+    @State private var scrollOffset: CGFloat
+
     /// Stored offset of previous scroll, so scroll state is resumed between drags.
     @State private var prevScrollOffset: CGFloat = 0
-    
-    ///
-    @State private var targetOffset: CGFloat = 0
+
+    /// Calculated offset based on `SnapLocation`
+    @State private var targetOffset: CGFloat
 
     @State private var itemFrames: [UUID: ContentPreferenceData] = [:]
+
+    private let coordinateSpace: String
 }

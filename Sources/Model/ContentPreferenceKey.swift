@@ -19,8 +19,6 @@ struct ContentPreferenceKey: PreferenceKey {
 
     static var defaultValue: [ContentPreferenceData] = []
 
-    static var coordinateSpace: String = "ContentPreferenceKey"
-
     static func reduce(
         value: inout Value,
         nextValue: () -> Value) {
