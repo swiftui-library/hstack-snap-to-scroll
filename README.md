@@ -2,6 +2,8 @@
 
 Drop-in container view for horizontal snapping. 
 
+https://user-images.githubusercontent.com/8763719/131393666-6af82d2a-998e-4dba-a7de-270a95c0b850.mov
+
 ## Getting Started
 
 Using `SnapToScroll` is straightforward. There's only two requirements:
