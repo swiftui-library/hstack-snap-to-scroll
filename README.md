@@ -1,6 +1,6 @@
 # SnapToScroll
 
-Drop-in container view for horizontal snapping. 
+Drop-in SwiftUI-based container view for horizontal snapping. 
 
 https://user-images.githubusercontent.com/8763719/131393666-6af82d2a-998e-4dba-a7de-270a95c0b850.mov
 
@@ -44,3 +44,10 @@ For more examples, see `SnapToScrollDemo/ContentView.swift`.
 
 ## How it Works
 
+At render, `HStackSnap` reads the frame data of each child element and calculates the `scrollOffset` each element should use. Then, on `DragGesture.onEnded`, the nearest snap location is calculated, and the scroll offset is set to this point.
+
+Read through `HStackSnap` for more details.
+
+## Credits
+
+Thanks to pixeltrue for the [illustrations](https://www.pixeltrue.com/scenic-illustrations#download) used in example 2.
