@@ -19,6 +19,10 @@ struct ContentView: View {
                         .font(.largeTitle)
                         .padding(16)
                         .overlay(GeometryReaderOverlay(id: item.1))
+                        .onTapGesture {
+                            
+                            print(item.0)
+                        }
                 }
             }
 //            HStackSnap(snapLocation: .center) {

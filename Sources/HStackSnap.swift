@@ -22,13 +22,16 @@ public struct HStackSnap<Content: View>: View {
 
         GeometryReader { geometry in
 
-            ScrollView(.horizontal) {
-
+            HStack {
+                
                 HStack(content: content)
-                    .frame(maxWidth: .infinity)
                     .offset(x: scrollOffset, y: .zero)
                     .animation(.easeOut(duration: 0.2))
+             
+                Spacer()
             }
+            // TODO: Make this less... janky.
+            .frame(width: 10000)
             .onPreferenceChange(ContentPreferenceKey.self, perform: { preferences in
 
                 // Calculate all values once, on render. On-the-fly calculations with GeometryReader
@@ -85,7 +88,6 @@ public struct HStackSnap<Content: View>: View {
                 }
 
             })
-            .disabled(true)
             .gesture(snapDrag)
         }
         .coordinateSpace(name: coordinateSpace)
