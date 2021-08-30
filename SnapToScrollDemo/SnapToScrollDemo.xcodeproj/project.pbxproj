@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84C99CD826D99BA100C1D5C4 /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C99CD726D99BA100C1D5C4 /* CellModel.swift */; };
+		841B0F8326DD39A4008A436B /* TripTupleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B0F8226DD39A4008A436B /* TripTupleView.swift */; };
+		84B568D926DD271000D37CF2 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B568D826DD271000D37CF2 /* TagView.swift */; };
+		84B568DB26DD309400D37CF2 /* Example1HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B568DA26DD309400D37CF2 /* Example1HeaderView.swift */; };
+		84B568DE26DD351900D37CF2 /* TripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B568DD26DD351900D37CF2 /* TripModel.swift */; };
+		84B568E026DD37A600D37CF2 /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B568DF26DD37A600D37CF2 /* TripView.swift */; };
+		84C99CD826D99BA100C1D5C4 /* TagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C99CD726D99BA100C1D5C4 /* TagModel.swift */; };
 		84D9FA3626D9753600F87EF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9FA3526D9753600F87EF5 /* AppDelegate.swift */; };
 		84D9FA3826D9753600F87EF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9FA3726D9753600F87EF5 /* SceneDelegate.swift */; };
 		84D9FA3A26D9753600F87EF5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D9FA3926D9753600F87EF5 /* ContentView.swift */; };
@@ -18,7 +23,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		84C99CD726D99BA100C1D5C4 /* CellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
+		841B0F8226DD39A4008A436B /* TripTupleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTupleView.swift; sourceTree = "<group>"; };
+		84B568D826DD271000D37CF2 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		84B568DA26DD309400D37CF2 /* Example1HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example1HeaderView.swift; sourceTree = "<group>"; };
+		84B568DD26DD351900D37CF2 /* TripModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripModel.swift; sourceTree = "<group>"; };
+		84B568DF26DD37A600D37CF2 /* TripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
+		84C99CD726D99BA100C1D5C4 /* TagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagModel.swift; sourceTree = "<group>"; };
 		84D9FA3226D9753600F87EF5 /* SnapToScrollDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapToScrollDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D9FA3526D9753600F87EF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84D9FA3726D9753600F87EF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +52,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84B568D626DD26A800D37CF2 /* Example1 */ = {
+			isa = PBXGroup;
+			children = (
+				84C99CD726D99BA100C1D5C4 /* TagModel.swift */,
+				84B568D826DD271000D37CF2 /* TagView.swift */,
+				84B568DA26DD309400D37CF2 /* Example1HeaderView.swift */,
+			);
+			path = Example1;
+			sourceTree = "<group>";
+		};
+		84B568DC26DD311F00D37CF2 /* Example 2 */ = {
+			isa = PBXGroup;
+			children = (
+				84B568DD26DD351900D37CF2 /* TripModel.swift */,
+				84B568DF26DD37A600D37CF2 /* TripView.swift */,
+				841B0F8226DD39A4008A436B /* TripTupleView.swift */,
+			);
+			path = "Example 2";
+			sourceTree = "<group>";
+		};
 		84D9FA2926D9753600F87EF5 = {
 			isa = PBXGroup;
 			children = (
@@ -65,9 +95,10 @@
 			children = (
 				84D9FA4926D9757400F87EF5 /* Resource Files */,
 				84D9FA3526D9753600F87EF5 /* AppDelegate.swift */,
+				84B568D626DD26A800D37CF2 /* Example1 */,
+				84B568DC26DD311F00D37CF2 /* Example 2 */,
 				84D9FA3726D9753600F87EF5 /* SceneDelegate.swift */,
 				84D9FA3926D9753600F87EF5 /* ContentView.swift */,
-				84C99CD726D99BA100C1D5C4 /* CellModel.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -171,10 +202,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B568DB26DD309400D37CF2 /* Example1HeaderView.swift in Sources */,
 				84D9FA3626D9753600F87EF5 /* AppDelegate.swift in Sources */,
+				841B0F8326DD39A4008A436B /* TripTupleView.swift in Sources */,
+				84B568D926DD271000D37CF2 /* TagView.swift in Sources */,
+				84B568E026DD37A600D37CF2 /* TripView.swift in Sources */,
+				84B568DE26DD351900D37CF2 /* TripModel.swift in Sources */,
 				84D9FA3826D9753600F87EF5 /* SceneDelegate.swift in Sources */,
 				84D9FA3A26D9753600F87EF5 /* ContentView.swift in Sources */,
-				84C99CD826D99BA100C1D5C4 /* CellModel.swift in Sources */,
+				84C99CD826D99BA100C1D5C4 /* TagModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,7 +351,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sources/Resource Files/Preview Content\"";
-				DEVELOPMENT_TEAM = AA73357GBH;
+				DEVELOPMENT_TEAM = 3XTTWH436M;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sources/Resource Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -323,7 +359,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.trentguillory.SnapToScrollDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trentguillory.SnapToScrollDemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -337,7 +373,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sources/Resource Files/Preview Content\"";
-				DEVELOPMENT_TEAM = AA73357GBH;
+				DEVELOPMENT_TEAM = 3XTTWH436M;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sources/Resource Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -345,7 +381,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.trentguillory.SnapToScrollDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trentguillory.SnapToScrollDemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

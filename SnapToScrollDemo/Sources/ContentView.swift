@@ -4,44 +4,76 @@ import SwiftUI
 // MARK: - ContentView
 
 struct ContentView: View {
-    
+
     @State var items = [("one", 1), ("two", 2), ("three", 3), ("four", 4), ("five", 5), ("six", 6)]
-    
-    
+
     var body: some View {
         VStack {
-            
-            HStackSnap(leadingOffset: 16) {
+
+            ScrollView {
+
+                VerticalSpace
                 
-                ForEach(items, id: \.1) { item in
-                    
-                    Text(item.0)
-                        .font(.largeTitle)
-                        .padding(16)
-                        .overlay(GeometryReaderOverlay(id: item.1))
-                        .onTapGesture {
-                            
-                            print(item.0)
+                VStack {
+
+                    LargeHeader(text: "Example 1")
+
+                    Example1HeaderView()
+
+                    // Don't forget to attach GeometryReaderOverlay!
+                    HStackSnap(leadingOffset: 16) {
+
+                        ForEach(TagModel.exampleModels) { viewModel in
+
+                            TagView(viewModel: viewModel)
+                                .overlay(GeometryReaderOverlay(id: viewModel.id))
                         }
+                    }.padding(.top, 4)
+                }
+
+                VerticalSpace
+
+                VStack {
+
+                    LargeHeader(text: "Example 2")
+
+                    Text("Explore Nearby")
+                        .font(.system(size: 22, weight: .semibold, design: .rounded))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding([.top, .leading], 16)
+
+                    HStackSnap(leadingOffset: 16) {
+
+                        ForEach(TripTupleModel.exampleModels) { viewModel in
+
+                            TripTupleView(viewModel: viewModel)
+                                .frame(maxWidth: 250)
+                                .overlay(GeometryReaderOverlay(id: viewModel.id))
+                        }
+                    }
+                    .frame(height: 200)
+                    .padding(.top, 4)
                 }
             }
-//            HStackSnap(snapLocation: .center) {
-//                
-//                ForEach(items, id: \.1) { item in
-//                    
-//                    Text(item.0)
-//                        .font(.largeTitle)
-//                        .padding()
-//                        .overlay(GeometryReaderOverlay(id: item.1))
-//                }
-//            }
         }
-        
-        /// SnapHStack {
-        ///      customForEach { item in
-        ///
-        ///      }
-        ///      }
+        .preferredColorScheme(.light)
+    }
+
+    var VerticalSpace: some View {
+
+        VStack {}
+            .frame(height: 64)
+    }
+
+    func LargeHeader(text: String) -> some View {
+
+        return
+            Text(text)
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .opacity(0.5)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 16)
     }
 }
 

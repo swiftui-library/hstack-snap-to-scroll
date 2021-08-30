@@ -17,7 +17,7 @@ public struct GeometryReaderOverlay<ID: Hashable>: View {
 
         GeometryReader { geometry in
 
-            Rectangle().fill(Color.blue.opacity(0.5))
+            Rectangle().fill(Color.clear)
                 .preference(
                     key: ContentPreferenceKey.self,
                     value: [ContentPreferenceData(

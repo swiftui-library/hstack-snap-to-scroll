@@ -38,7 +38,7 @@ public struct HStackSnap<Content: View>: View {
                 // proved occasionally unstable in testing.
                 if !hasCalculatedFrames {
 
-                    let viewWidth = geometry.frame(in: .named(coordinateSpace)).width
+                    let screenWidth = geometry.frame(in: .named(coordinateSpace)).width
 
                     var itemScrollPositions: [Int: CGFloat] = [:]
 
@@ -68,7 +68,7 @@ public struct HStackSnap<Content: View>: View {
                     // Calculate how many snap locations should be trimmed.
                     for i in 0 ..< reversedFitMap.count {
 
-                        if reversedFitMap[i] > viewWidth {
+                        if reversedFitMap[i] > screenWidth {
 
                             frameTrim = max(i - 1, 0)
                             break
@@ -86,7 +86,6 @@ public struct HStackSnap<Content: View>: View {
 
                     hasCalculatedFrames = true
                 }
-
             })
             .gesture(snapDrag)
         }
@@ -103,7 +102,6 @@ public struct HStackSnap<Content: View>: View {
             .onChanged { gesture in
 
                 self.scrollOffset = gesture.translation.width + prevScrollOffset
-
             }.onEnded { event in
 
                 let currOffset = scrollOffset
