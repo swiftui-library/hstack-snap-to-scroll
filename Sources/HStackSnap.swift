@@ -27,12 +27,61 @@ public struct HStackSnap<Content: View>: View {
                 HStack(content: content)
                     .frame(maxWidth: .infinity)
                     .offset(x: scrollOffset, y: .zero)
+                    .animation(.easeOut(duration: 0.2))
             }
             .onPreferenceChange(ContentPreferenceKey.self, perform: { preferences in
 
-                for pref in preferences {
+                // Calculate all values once, on render. On-the-fly calculations with GeometryReader
+                // proved occasionally unstable in testing.
+                if !hasCalculatedFrames {
 
-                    itemFrames[pref.id.hashValue] = pref
+                    let viewWidth = geometry.frame(in: .named(coordinateSpace)).width
+
+                    var itemScrollPositions: [Int: CGFloat] = [:]
+
+                    var frameMaxXVals: [CGFloat] = []
+
+                    for pref in preferences {
+
+                        itemScrollPositions[pref.id.hashValue] = scrollOffset(for: pref.rect.minX)
+                        frameMaxXVals.append(pref.rect.maxX)
+                    }
+
+                    // Array of content widths from currentElement.minX to lastElement.maxX
+                    var contentFitMap: [CGFloat] = []
+
+                    // Calculate content widths (used to trim snap positions later)
+                    for currMinX in preferences.map({ $0.rect.minX }) {
+
+                        guard let maxX = preferences.last?.rect.maxX else { break }
+                        let widthToEnd = maxX - currMinX
+
+                        contentFitMap.append(widthToEnd)
+                    }
+
+                    var frameTrim: Int = 0
+                    let reversedFitMap = Array(contentFitMap.reversed())
+
+                    // Calculate how many snap locations should be trimmed.
+                    for i in 0 ..< reversedFitMap.count {
+
+                        if reversedFitMap[i] > viewWidth {
+
+                            frameTrim = max(i - 1, 0)
+                            break
+                        }
+                    }
+
+                    // Write valid snap locations to state.
+                    for (i, item) in itemScrollPositions.sorted(by: { $0.value > $1.value })
+                        .enumerated() {
+
+                        guard i < (itemScrollPositions.count - frameTrim) else { break }
+
+                        snapLocations[item.key] = item.value
+                    }
+
+                    hasCalculatedFrames = true
                 }
 
             })
@@ -55,36 +104,30 @@ public struct HStackSnap<Content: View>: View {
 
             }.onEnded { event in
 
-                guard var closestFrame: ContentPreferenceData = itemFrames.first?.value else { return }
+                let currOffset = scrollOffset
+                var closestSnapLocation: CGFloat = snapLocations.first?.value ?? targetOffset
 
-                for (_, value) in itemFrames {
+                for (_, offset) in snapLocations {
 
-                    let currDistance = distanceToTarget(
-                        x: closestFrame.rect.minX)
-                    let newDistance = distanceToTarget(x: value.rect.minX)
+                    if abs(offset - currOffset) < abs(closestSnapLocation - currOffset) {
 
-                    if abs(newDistance) < abs(currDistance) {
-
-                        closestFrame = value
+                        closestSnapLocation = offset
                     }
                 }
 
-                withAnimation(.easeOut(duration: 0.2)) {
-
-                    scrollOffset += distanceToTarget(
-                        x: closestFrame.rect.minX)
-                }
-
+                scrollOffset = closestSnapLocation
                 prevScrollOffset = scrollOffset
             }
     }
 
-    func distanceToTarget(x: CGFloat) -> CGFloat {
+    func scrollOffset(for x: CGFloat) -> CGFloat {
 
-        return targetOffset - x
+        return (targetOffset * 2) - x
     }
 
     // MARK: Private
+
+    @State private var hasCalculatedFrames: Bool = false
 
     /// Current scroll offset.
     @State private var scrollOffset: CGFloat
@@ -95,7 +138,8 @@ public struct HStackSnap<Content: View>: View {
     /// Calculated offset based on `SnapLocation`
     @State private var targetOffset: CGFloat
 
-    @State private var itemFrames: [Int: ContentPreferenceData] = [:]
+    /// The original offset of each frame, used to calculate `scrollOffset`
+    @State private var snapLocations: [Int: CGFloat] = [:]
 
     private let coordinateSpace: String
 }

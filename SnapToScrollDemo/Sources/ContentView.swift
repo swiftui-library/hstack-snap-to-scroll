@@ -5,7 +5,8 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var items = [("one", UUID()), ("two", UUID()), ("three", UUID()), ("four", UUID()), ("five", UUID()), ("six", UUID())]
+    @State var items = [("one", 1), ("two", 2), ("three", 3), ("four", 4), ("five", 5), ("six", 6)]
+    
     
     var body: some View {
         VStack {
