@@ -111,6 +111,7 @@ public struct HStackSnap<Content: View>: View {
                 let currOffset = scrollOffset
                 var closestSnapLocation: CGFloat = snapLocations.first?.value ?? targetOffset
 
+                // Calculate closest snap location
                 for (_, offset) in snapLocations {
 
                     if abs(offset - currOffset) < abs(closestSnapLocation - currOffset) {
@@ -119,15 +120,22 @@ public struct HStackSnap<Content: View>: View {
                     }
                 }
 
+                // Handle swipe callback
                 let selectedIndex = snapLocations.map { $0.value }.sorted(by: { $0 > $1 })
                     .firstIndex(of: closestSnapLocation) ?? 0
 
-                swipeEventHandler?(selectedIndex)
+                if selectedIndex != previouslySentIndex {
+
+                    swipeEventHandler?(selectedIndex)
+                    previouslySentIndex = selectedIndex
+                }
+
+                // Update state
                 scrollOffset = closestSnapLocation
                 prevScrollOffset = scrollOffset
             }
     }
-
+    
     func scrollOffset(for x: CGFloat) -> CGFloat {
 
         return (targetOffset * 2) - x
@@ -150,6 +158,8 @@ public struct HStackSnap<Content: View>: View {
     @State private var snapLocations: [Int: CGFloat] = [:]
 
     private var swipeEventHandler: SwipeEventHandler?
+
+    @State private var previouslySentIndex: Int = 0
 
     private let coordinateSpace: String
 }
