@@ -5,14 +5,14 @@ import SwiftUI
 
 struct SnapAlignmentHelper<ID: Hashable>: ViewModifier {
 
-    @EnvironmentObject var geometryData: GeometryEnvironment
+    @EnvironmentObject var sizeOverride: SizeOverride
 
     var id: ID
     var coordinateSpace: String?
 
     func body(content: Content) -> some View {
 
-        switch geometryData.itemWidth {
+        switch sizeOverride.itemWidth {
 
         case let .some(value):
 

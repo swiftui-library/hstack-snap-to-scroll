@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-class GeometryEnvironment: ObservableObject {
+class SizeOverride: ObservableObject {
 
     init(itemWidth: CGFloat?) {
         

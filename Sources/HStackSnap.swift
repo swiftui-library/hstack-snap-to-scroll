@@ -37,7 +37,7 @@ public struct HStackSnap<Content: View>: View {
                 coordinateSpace: coordinateSpace,
                 content: content,
                 onSwipe: swipeEventHandler)
-                .environmentObject(GeometryEnvironment(itemWidth: alignment.shouldSetWidth ? calculatedItemWidth(parentWidth: geometry.size.width, offset: alignment.scrollOffset) : .none))
+                .environmentObject(SizeOverride(itemWidth: alignment.shouldSetWidth ? calculatedItemWidth(parentWidth: geometry.size.width, offset: alignment.scrollOffset) : .none))
         }
     }
 
