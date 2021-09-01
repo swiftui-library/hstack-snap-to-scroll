@@ -41,15 +41,18 @@ struct ContentView: View {
                         .font(.system(size: 22, weight: .semibold, design: .rounded))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.top, .leading], 16)
-
+                    
                     HStackSnap(leadingOffset: 16) {
-
+                        
                         ForEach(TripTupleModel.exampleModels) { viewModel in
 
                             TripTupleView(viewModel: viewModel)
                                 .frame(maxWidth: 250)
                                 .overlay(GeometryReaderOverlay(id: viewModel.id))
                         }
+                    } onSwipe: { index in
+                        
+                        print(index)
                     }
                     .frame(height: 200)
                     .padding(.top, 4)

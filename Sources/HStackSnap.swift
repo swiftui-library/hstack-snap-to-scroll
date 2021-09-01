@@ -3,17 +3,21 @@ import SwiftUI
 
 public struct HStackSnap<Content: View>: View {
 
+    public typealias SwipeEventHandler = ((Int) -> Void)
+
     // MARK: Lifecycle
 
     public init(
         leadingOffset: CGFloat,
         coordinateSpace: String = "SnapToScroll",
-        @ViewBuilder content: @escaping () -> Content) {
+        @ViewBuilder content: @escaping () -> Content,
+        onSwipe: SwipeEventHandler? = .none) {
 
         self.content = content
         targetOffset = leadingOffset
         scrollOffset = leadingOffset
         self.coordinateSpace = coordinateSpace
+        swipeEventHandler = onSwipe
     }
 
     // MARK: Public
@@ -23,11 +27,11 @@ public struct HStackSnap<Content: View>: View {
         GeometryReader { geometry in
 
             HStack {
-                
+
                 HStack(content: content)
                     .offset(x: scrollOffset, y: .zero)
                     .animation(.easeOut(duration: 0.2))
-             
+
                 Spacer()
             }
             // TODO: Make this less... janky.
@@ -115,6 +119,10 @@ public struct HStackSnap<Content: View>: View {
                     }
                 }
 
+                let selectedIndex = snapLocations.map { $0.value }.sorted(by: { $0 > $1 })
+                    .firstIndex(of: closestSnapLocation) ?? 0
+
+                swipeEventHandler?(selectedIndex)
                 scrollOffset = closestSnapLocation
                 prevScrollOffset = scrollOffset
             }
@@ -140,6 +148,8 @@ public struct HStackSnap<Content: View>: View {
 
     /// The original offset of each frame, used to calculate `scrollOffset`
     @State private var snapLocations: [Int: CGFloat] = [:]
+
+    private var swipeEventHandler: SwipeEventHandler?
 
     private let coordinateSpace: String
 }
