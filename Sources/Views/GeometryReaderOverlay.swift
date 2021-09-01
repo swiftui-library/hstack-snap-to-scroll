@@ -5,10 +5,10 @@ public struct GeometryReaderOverlay<ID: Hashable>: View {
 
     // MARK: Lifecycle
 
-    public init(id: ID, coordinateSpace: String = "SnapToScroll") {
+    public init(id: ID, coordinateSpace: String?) {
 
         self.id = id
-        self.coordinateSpace = coordinateSpace
+        optionalCoordinateSpace = coordinateSpace
     }
 
     // MARK: Public
@@ -29,5 +29,12 @@ public struct GeometryReaderOverlay<ID: Hashable>: View {
     // MARK: Internal
 
     let id: ID
-    let coordinateSpace: String
+    let optionalCoordinateSpace: String?
+
+    let defaultCoordinateSpace = "SnapToScroll"
+
+    var coordinateSpace: String {
+
+        return optionalCoordinateSpace ?? defaultCoordinateSpace
+    }
 }
