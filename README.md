@@ -2,7 +2,7 @@
 
 Drop-in SwiftUI-based container view for horizontal snapping. 
 
-https://user-images.githubusercontent.com/8763719/131393666-6af82d2a-998e-4dba-a7de-270a95c0b850.mov
+https://user-images.githubusercontent.com/8763719/131696736-0474ae54-35ad-4579-ab1e-366ae101949b.mp4
 
 ## Getting Started
 
