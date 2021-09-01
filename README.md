@@ -6,47 +6,56 @@ https://user-images.githubusercontent.com/8763719/131393666-6af82d2a-998e-4dba-a
 
 ## Getting Started
 
-Using `SnapToScroll` is straightforward. There's only two requirements:
+Using `SnapToScroll` is straightforward. There's just three steps.
 
-1. Replace `HStack` with `HStackSnap`
-2. Add `GeometryReaderOverlay` to your view.
+1. Import `SnapToScroll`
+2. Replace `HStack` with `HStackSnap`
+3. Add `.snapAlignmentHelper` to your view.
 
 An example:
 
 ```swift
+import SnapToScroll                               // Step 1
+...
 
-HStackSnap(leadingOffset: 16) {
+HStackSnap(alignment: .center(32)) {              // Step 2
 
-    ForEach(modelArray) { viewModel in
+    ForEach(myModels) { viewModel in
 
-        myView(viewModel: viewModel)
-            .frame(maxWidth: 250)
-            .overlay(GeometryReaderOverlay(id: viewModel.id))
-        }
-    }
+        MyView(
+            selectedIndex: $selectedIndex,
+            viewModel: viewModel
+         )
+         .snapAlignmentHelper(id: viewModel.id)   // Step 3
+     }
 }
                     
 ```
 For more examples, see `SnapToScrollDemo/ContentView.swift`.
 
-## Options
+## Configuration
 
 `HStackSnap` comes with two customizable properties:
 
-- `leadingOffset`: The leading padding you'd like each element to snap to.
-- `coordinateSpace`: Option to set custom name for the coordinate space, in the case you're using multiple `HStackSnap`s of various sizes.
+- `alignment`: The way you'd like your elements to be arranged. 
+    - `leading(CGFloat)`: Aligns your child views to the leading edge of `HStackSnap`. This configuration supports elements of various sizes, so long as they don't take up all available horizontal space (which would extend beyond the screen). Use the value to set the size of the left offset.
+    - `center(CGFloat)`: Automatically aligns your child view to the center of the screen, using the offset value you've provided. This is accomplished with inside of the `.snapAlignmentHelper` which sets the frame width based on the available space. Note that setting your own width elsewhere may produce unexpected layouts.
+- `coordinateSpace`: Option to set custom name for the coordinate space, in the case you're using multiple `HStackSnap`s of various sizes. If you use this, set the same value in `.snapAlignmentHelper`.
+
+`.snapAlignmentHelper` comes with two options as well:
+
+- `id`: Required. A unique ID for the element. 
+- `coordinateSpace`: Same as above.
 
 ## Limitations
 
-1. If your child views are designed to take up all available horizontal space, they'll expand beyond the visible view. Prevent this with `.frame(maxWidth: x)`
-2. `HStackSnap` is currently designed to work with static content.
-3. At the moment, `HStackSnap` offers snapping to the leading edge only. If you'd like to offer a PR that adds support for `.center` and / or `.trailing`, I'd love to look it over!
+- `HStackSnap` is currently designed to work with static content. 
 
 ## How it Works
 
 At render, `HStackSnap` reads the frame data of each child element and calculates the `scrollOffset` each element should use. Then, on `DragGesture.onEnded`, the nearest snap location is calculated, and the scroll offset is set to this point.
 
-Read through `HStackSnap` for more details.
+Read through `HStackSnap.swift` and `Views/HStackSnapCore.swift` for more details.
 
 ## Credits
 
