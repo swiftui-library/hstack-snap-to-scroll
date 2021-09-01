@@ -28,8 +28,7 @@ HStackSnap(alignment: .center(32)) {              // Step 2
          )
          .snapAlignmentHelper(id: viewModel.id)   // Step 3
      }
-}
-                    
+}                  
 ```
 For more examples, see `SnapToScrollDemo/ContentView.swift`.
 
