@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840130AF26DFB8DD00E4A8A3 /* GettingStartedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840130AE26DFB8DC00E4A8A3 /* GettingStartedModel.swift */; };
+		840130B126DFB93400E4A8A3 /* GettingStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840130B026DFB93400E4A8A3 /* GettingStartedView.swift */; };
+		840130B326DFC27700E4A8A3 /* Example3ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840130B226DFC27700E4A8A3 /* Example3ContentView.swift */; };
+		840130B526DFC2FB00E4A8A3 /* Example2ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840130B426DFC2FB00E4A8A3 /* Example2ContentView.swift */; };
+		840130B726DFC33100E4A8A3 /* Example1ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840130B626DFC33100E4A8A3 /* Example1ContentView.swift */; };
 		841B0F8326DD39A4008A436B /* TripTupleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B0F8226DD39A4008A436B /* TripTupleView.swift */; };
 		84B568D926DD271000D37CF2 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B568D826DD271000D37CF2 /* TagView.swift */; };
 		84B568DB26DD309400D37CF2 /* Example1HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B568DA26DD309400D37CF2 /* Example1HeaderView.swift */; };
@@ -23,6 +28,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		840130AE26DFB8DC00E4A8A3 /* GettingStartedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingStartedModel.swift; sourceTree = "<group>"; };
+		840130B026DFB93400E4A8A3 /* GettingStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingStartedView.swift; sourceTree = "<group>"; };
+		840130B226DFC27700E4A8A3 /* Example3ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example3ContentView.swift; sourceTree = "<group>"; };
+		840130B426DFC2FB00E4A8A3 /* Example2ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example2ContentView.swift; sourceTree = "<group>"; };
+		840130B626DFC33100E4A8A3 /* Example1ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example1ContentView.swift; sourceTree = "<group>"; };
 		841B0F8226DD39A4008A436B /* TripTupleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTupleView.swift; sourceTree = "<group>"; };
 		84B568D826DD271000D37CF2 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		84B568DA26DD309400D37CF2 /* Example1HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example1HeaderView.swift; sourceTree = "<group>"; };
@@ -52,9 +62,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		840130AD26DFB8C800E4A8A3 /* Example3 */ = {
+			isa = PBXGroup;
+			children = (
+				840130B226DFC27700E4A8A3 /* Example3ContentView.swift */,
+				840130AE26DFB8DC00E4A8A3 /* GettingStartedModel.swift */,
+				840130B026DFB93400E4A8A3 /* GettingStartedView.swift */,
+			);
+			path = Example3;
+			sourceTree = "<group>";
+		};
 		84B568D626DD26A800D37CF2 /* Example1 */ = {
 			isa = PBXGroup;
 			children = (
+				840130B626DFC33100E4A8A3 /* Example1ContentView.swift */,
 				84C99CD726D99BA100C1D5C4 /* TagModel.swift */,
 				84B568D826DD271000D37CF2 /* TagView.swift */,
 				84B568DA26DD309400D37CF2 /* Example1HeaderView.swift */,
@@ -68,6 +89,7 @@
 				84B568DD26DD351900D37CF2 /* TripModel.swift */,
 				84B568DF26DD37A600D37CF2 /* TripView.swift */,
 				841B0F8226DD39A4008A436B /* TripTupleView.swift */,
+				840130B426DFC2FB00E4A8A3 /* Example2ContentView.swift */,
 			);
 			path = "Example 2";
 			sourceTree = "<group>";
@@ -97,6 +119,7 @@
 				84D9FA3526D9753600F87EF5 /* AppDelegate.swift */,
 				84B568D626DD26A800D37CF2 /* Example1 */,
 				84B568DC26DD311F00D37CF2 /* Example 2 */,
+				840130AD26DFB8C800E4A8A3 /* Example3 */,
 				84D9FA3726D9753600F87EF5 /* SceneDelegate.swift */,
 				84D9FA3926D9753600F87EF5 /* ContentView.swift */,
 			);
@@ -204,10 +227,15 @@
 			files = (
 				84B568DB26DD309400D37CF2 /* Example1HeaderView.swift in Sources */,
 				84D9FA3626D9753600F87EF5 /* AppDelegate.swift in Sources */,
+				840130AF26DFB8DD00E4A8A3 /* GettingStartedModel.swift in Sources */,
 				841B0F8326DD39A4008A436B /* TripTupleView.swift in Sources */,
+				840130B726DFC33100E4A8A3 /* Example1ContentView.swift in Sources */,
 				84B568D926DD271000D37CF2 /* TagView.swift in Sources */,
+				840130B326DFC27700E4A8A3 /* Example3ContentView.swift in Sources */,
 				84B568E026DD37A600D37CF2 /* TripView.swift in Sources */,
+				840130B526DFC2FB00E4A8A3 /* Example2ContentView.swift in Sources */,
 				84B568DE26DD351900D37CF2 /* TripModel.swift in Sources */,
+				840130B126DFB93400E4A8A3 /* GettingStartedView.swift in Sources */,
 				84D9FA3826D9753600F87EF5 /* SceneDelegate.swift in Sources */,
 				84D9FA3A26D9753600F87EF5 /* ContentView.swift in Sources */,
 				84C99CD826D99BA100C1D5C4 /* TagModel.swift in Sources */,
