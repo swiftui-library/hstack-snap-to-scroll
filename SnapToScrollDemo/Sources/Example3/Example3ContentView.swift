@@ -5,12 +5,10 @@ import SwiftUI
 
 struct Example3ContentView: View {
 
-    // MARK: Internal
-
     var body: some View {
-
+        
         VStack {
-
+                
             Text("Getting Started")
                 .font(.system(size: 22, weight: .semibold, design: .rounded))
                 .foregroundColor(.white)
@@ -18,7 +16,7 @@ struct Example3ContentView: View {
                 .padding([.top, .leading], 32)
 
             HStackSnap(alignment: .center(32)) {
-
+                
                 ForEach(GettingStartedModel.exampleModels) { viewModel in
 
                     GettingStartedView(
@@ -26,9 +24,9 @@ struct Example3ContentView: View {
                         viewModel: viewModel)
                         .snapAlignmentHelper(id: viewModel.id)
                 }
-            } onSwipe: { index in
+            } eventHandler: { event in
 
-                selectedGettingStartedIndex = index
+                handleSnapToScrollEvent(event: event)
             }
             .frame(height: 200)
             .padding(.top, 4)
@@ -38,6 +36,19 @@ struct Example3ContentView: View {
             colors: [Color("Cream"), Color("LightPink")],
             startPoint: .top,
             endPoint: .bottom))
+    }
+
+    func handleSnapToScrollEvent(event: SnapToScrollEvent) {
+        switch event {
+            case let .didLayout(layoutInfo: layoutInfo):
+
+                print("\(layoutInfo.keys.count) items layed out")
+
+            case let .swipe(index: index):
+
+                print("swiped to index: \(index)")
+                selectedGettingStartedIndex = index
+        }
     }
 
     // MARK: Private
