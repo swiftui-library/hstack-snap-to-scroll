@@ -1,33 +1,32 @@
 import Foundation
 import SwiftUI
 
+public typealias SnapToScrollEventHandler = ((SnapToScrollEvent) -> Void)
+
+// MARK: - HStackSnapCore
+
 public struct HStackSnapCore<Content: View>: View {
-
-    public typealias SwipeEventHandler = ((Int) -> Void)
-
     // MARK: Lifecycle
 
     public init(
         leadingOffset: CGFloat,
         coordinateSpace: String = "SnapToScroll",
         @ViewBuilder content: @escaping () -> Content,
-        onSwipe: SwipeEventHandler? = .none) {
-
+        eventHandler: SnapToScrollEventHandler? = .none) {
+            
         self.content = content
-        targetOffset = leadingOffset
-        scrollOffset = leadingOffset
+        self.targetOffset = leadingOffset
+        self.scrollOffset = leadingOffset
         self.coordinateSpace = coordinateSpace
-        swipeEventHandler = onSwipe
+        self.eventHandler = eventHandler
     }
 
     // MARK: Public
 
     public var body: some View {
-
         GeometryReader { geometry in
 
             HStack {
-
                 HStack(content: content)
                     .offset(x: scrollOffset, y: .zero)
                     .animation(.easeOut(duration: 0.2))
@@ -41,17 +40,15 @@ public struct HStackSnapCore<Content: View>: View {
                 // Calculate all values once, on render. On-the-fly calculations with GeometryReader
                 // proved occasionally unstable in testing.
                 if !hasCalculatedFrames {
-
                     let screenWidth = geometry.frame(in: .named(coordinateSpace)).width
 
                     var itemScrollPositions: [Int: CGFloat] = [:]
 
                     var frameMaxXVals: [CGFloat] = []
 
-                    for pref in preferences {
-
-                        itemScrollPositions[pref.id.hashValue] = scrollOffset(for: pref.rect.minX)
-                        frameMaxXVals.append(pref.rect.maxX)
+                    for (index, preference) in preferences.enumerated() {
+                        itemScrollPositions[index] = scrollOffset(for: preference.rect.minX)
+                        frameMaxXVals.append(preference.rect.maxX)
                     }
 
                     // Array of content widths from currentElement.minX to lastElement.maxX
@@ -59,7 +56,6 @@ public struct HStackSnapCore<Content: View>: View {
 
                     // Calculate content widths (used to trim snap positions later)
                     for currMinX in preferences.map({ $0.rect.minX }) {
-
                         guard let maxX = preferences.last?.rect.maxX else { break }
                         let widthToEnd = maxX - currMinX
 
@@ -71,9 +67,7 @@ public struct HStackSnapCore<Content: View>: View {
 
                     // Calculate how many snap locations should be trimmed.
                     for i in 0 ..< reversedFitMap.count {
-
                         if reversedFitMap[i] > screenWidth {
-
                             frameTrim = max(i - 1, 0)
                             break
                         }
@@ -81,14 +75,16 @@ public struct HStackSnapCore<Content: View>: View {
 
                     // Write valid snap locations to state.
                     for (i, item) in itemScrollPositions.sorted(by: { $0.value > $1.value })
-                        .enumerated() {
-
+                        .enumerated()
+                    {
                         guard i < (itemScrollPositions.count - frameTrim) else { break }
 
                         snapLocations[item.key] = item.value
                     }
 
                     hasCalculatedFrames = true
+                    
+                    eventHandler?(.didLayout(layoutInfo: itemScrollPositions))
                 }
             })
             .gesture(snapDrag)
@@ -101,21 +97,18 @@ public struct HStackSnapCore<Content: View>: View {
     var content: () -> Content
 
     var snapDrag: some Gesture {
-
         DragGesture()
             .onChanged { gesture in
 
                 self.scrollOffset = gesture.translation.width + prevScrollOffset
-            }.onEnded { event in
+            }.onEnded { _ in
 
                 let currOffset = scrollOffset
                 var closestSnapLocation: CGFloat = snapLocations.first?.value ?? targetOffset
 
                 // Calculate closest snap location
                 for (_, offset) in snapLocations {
-
                     if abs(offset - currOffset) < abs(closestSnapLocation - currOffset) {
-
                         closestSnapLocation = offset
                     }
                 }
@@ -125,8 +118,7 @@ public struct HStackSnapCore<Content: View>: View {
                     .firstIndex(of: closestSnapLocation) ?? 0
 
                 if selectedIndex != previouslySentIndex {
-
-                    swipeEventHandler?(selectedIndex)
+                    eventHandler?(.swipe(index: selectedIndex))
                     previouslySentIndex = selectedIndex
                 }
 
@@ -135,9 +127,8 @@ public struct HStackSnapCore<Content: View>: View {
                 prevScrollOffset = scrollOffset
             }
     }
-    
-    func scrollOffset(for x: CGFloat) -> CGFloat {
 
+    func scrollOffset(for x: CGFloat) -> CGFloat {
         return (targetOffset * 2) - x
     }
 
@@ -157,7 +148,7 @@ public struct HStackSnapCore<Content: View>: View {
     /// The original offset of each frame, used to calculate `scrollOffset`
     @State private var snapLocations: [Int: CGFloat] = [:]
 
-    private var swipeEventHandler: SwipeEventHandler?
+    private var eventHandler: SnapToScrollEventHandler?
 
     @State private var previouslySentIndex: Int = 0
 

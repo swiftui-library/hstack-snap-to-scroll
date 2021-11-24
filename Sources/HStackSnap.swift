@@ -3,21 +3,19 @@ import SwiftUI
 
 public struct HStackSnap<Content: View>: View {
 
-    public typealias SwipeEventHandler = ((Int) -> Void)
-
     // MARK: Lifecycle
 
     public init(
         alignment: SnapAlignment,
         coordinateSpace: String = "SnapToScroll",
         @ViewBuilder content: @escaping () -> Content,
-        onSwipe: SwipeEventHandler? = .none) {
+        eventHandler: SnapToScrollEventHandler? = .none) {
 
         self.content = content
-            self.alignment = alignment
-        leadingOffset = alignment.scrollOffset
+        self.alignment = alignment
+        self.leadingOffset = alignment.scrollOffset
         self.coordinateSpace = coordinateSpace
-        swipeEventHandler = onSwipe
+        self.eventHandler = eventHandler
     }
 
     // MARK: Public
@@ -36,7 +34,7 @@ public struct HStackSnap<Content: View>: View {
                 leadingOffset: leadingOffset,
                 coordinateSpace: coordinateSpace,
                 content: content,
-                onSwipe: swipeEventHandler)
+                eventHandler: eventHandler)
                 .environmentObject(SizeOverride(itemWidth: alignment.shouldSetWidth ? calculatedItemWidth(parentWidth: geometry.size.width, offset: alignment.scrollOffset) : .none))
         }
     }
@@ -52,7 +50,7 @@ public struct HStackSnap<Content: View>: View {
     /// Calculated offset based on `SnapLocation`
     private let leadingOffset: CGFloat
 
-    private var swipeEventHandler: SwipeEventHandler?
+    private var eventHandler: SnapToScrollEventHandler?
 
     private let coordinateSpace: String
 }
