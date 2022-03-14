@@ -36,7 +36,8 @@ public struct HStackSnapCore<Content: View>: View {
             // TODO: Make this less... janky.
             .frame(width: 10000)
             .onPreferenceChange(ContentPreferenceKey.self, perform: { preferences in
-
+                self.preferences = preferences
+                
                 // Calculate all values once, on render. On-the-fly calculations with GeometryReader
                 // proved occasionally unstable in testing.
                 if !hasCalculatedFrames {
@@ -133,6 +134,15 @@ public struct HStackSnapCore<Content: View>: View {
     }
 
     // MARK: Private
+    
+    /// Used to check if children configuration (ids or sizes) have changed.
+    @State private var preferences: [ContentPreferenceData] = [] {
+        didSet {
+            if oldValue.map(\.id) != preferences.map(\.id) || oldValue.map { $0.rect.size } != preferences.map { $0.rect.size } {
+                hasCalculatedFrames = false
+            }
+        }
+    }
 
     @State private var hasCalculatedFrames: Bool = false
 
