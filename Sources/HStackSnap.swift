@@ -7,6 +7,7 @@ public struct HStackSnap<Content: View>: View {
 
     public init(
         alignment: SnapAlignment,
+        spacing: CGFloat? = nil,
         coordinateSpace: String = "SnapToScroll",
         @ViewBuilder content: @escaping () -> Content,
         eventHandler: SnapToScrollEventHandler? = .none) {
@@ -14,6 +15,7 @@ public struct HStackSnap<Content: View>: View {
         self.content = content
         self.alignment = alignment
         self.leadingOffset = alignment.scrollOffset
+        self.spacing = spacing
         self.coordinateSpace = coordinateSpace
         self.eventHandler = eventHandler
     }
@@ -32,6 +34,7 @@ public struct HStackSnap<Content: View>: View {
 
             HStackSnapCore(
                 leadingOffset: leadingOffset,
+                spacing: spacing,
                 coordinateSpace: coordinateSpace,
                 content: content,
                 eventHandler: eventHandler)
@@ -49,6 +52,8 @@ public struct HStackSnap<Content: View>: View {
 
     /// Calculated offset based on `SnapLocation`
     private let leadingOffset: CGFloat
+
+    private let spacing: CGFloat?
 
     private var eventHandler: SnapToScrollEventHandler?
 
