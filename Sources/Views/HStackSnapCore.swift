@@ -31,7 +31,6 @@ public struct HStackSnapCore<Content: View>: View {
             HStack {
                 HStack(spacing: spacing, content: content)
                     .offset(x: scrollOffset, y: .zero)
-                    .animation(.easeOut(duration: 0.2))
 
                 Spacer()
             }
@@ -125,7 +124,9 @@ public struct HStackSnapCore<Content: View>: View {
                 }
 
                 // Update state
-                scrollOffset = closestSnapLocation
+                withAnimation(.easeOut(duration: 0.2)) {
+                    scrollOffset = closestSnapLocation
+                }
                 prevScrollOffset = scrollOffset
             }
     }
