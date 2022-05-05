@@ -10,12 +10,14 @@ public struct HStackSnapCore<Content: View>: View {
 
     public init(
         leadingOffset: CGFloat,
+        spacing: CGFloat? = nil,
         coordinateSpace: String = "SnapToScroll",
         @ViewBuilder content: @escaping () -> Content,
         eventHandler: SnapToScrollEventHandler? = .none) {
             
         self.content = content
         self.targetOffset = leadingOffset
+        self.spacing = spacing
         self.scrollOffset = leadingOffset
         self.coordinateSpace = coordinateSpace
         self.eventHandler = eventHandler
@@ -27,9 +29,8 @@ public struct HStackSnapCore<Content: View>: View {
         GeometryReader { geometry in
 
             HStack {
-                HStack(content: content)
+                HStack(spacing: spacing, content: content)
                     .offset(x: scrollOffset, y: .zero)
-                    .animation(.easeOut(duration: 0.2))
 
                 Spacer()
             }
@@ -124,7 +125,9 @@ public struct HStackSnapCore<Content: View>: View {
                 }
 
                 // Update state
-                scrollOffset = closestSnapLocation
+                withAnimation(.easeOut(duration: 0.2)) {
+                    scrollOffset = closestSnapLocation
+                }
                 prevScrollOffset = scrollOffset
             }
     }
@@ -154,6 +157,9 @@ public struct HStackSnapCore<Content: View>: View {
 
     /// Calculated offset based on `SnapLocation`
     @State private var targetOffset: CGFloat
+
+    /// Space between content views`
+    @State private var spacing: CGFloat?
 
     /// The original offset of each frame, used to calculate `scrollOffset`
     @State private var snapLocations: [Int: CGFloat] = [:]
