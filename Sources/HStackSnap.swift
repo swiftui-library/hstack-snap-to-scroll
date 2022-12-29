@@ -25,8 +25,6 @@ public struct HStackSnap<Content: View>: View {
     public var body: some View {
         
         func calculatedItemWidth(parentWidth: CGFloat, offset: CGFloat) -> CGFloat {
-            
-            print(parentWidth)
             return parentWidth - offset * 2
         }
 
