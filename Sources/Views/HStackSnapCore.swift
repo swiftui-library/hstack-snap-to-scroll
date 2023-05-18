@@ -90,6 +90,7 @@ public struct HStackSnapCore<Content: View>: View {
                     eventHandler?(.didLayout(layoutInfo: itemScrollPositions))
                 }
             })
+            .contentShape(Rectangle())
             .gesture(snapDrag)
         }
         .coordinateSpace(name: coordinateSpace)
