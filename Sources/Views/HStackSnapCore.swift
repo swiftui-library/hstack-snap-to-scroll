@@ -21,6 +21,7 @@ public struct HStackSnapCore<Content: View>: View {
         self.scrollOffset = leadingOffset
         self.coordinateSpace = coordinateSpace
         self.eventHandler = eventHandler
+        self._prevScrollOffset = State(initialValue: leadingOffset)
     }
 
     // MARK: Public
@@ -153,7 +154,7 @@ public struct HStackSnapCore<Content: View>: View {
     @State private var scrollOffset: CGFloat
 
     /// Stored offset of previous scroll, so scroll state is resumed between drags.
-    @State private var prevScrollOffset: CGFloat = 0
+    @State private var prevScrollOffset: CGFloat
 
     /// Calculated offset based on `SnapLocation`
     @State private var targetOffset: CGFloat
